@@ -1,6 +1,7 @@
 package com.bookstore.back.bookstoreback.service;
 
 import com.bookstore.back.bookstoreback.domain.Categoria;
+import com.bookstore.back.bookstoreback.exceptions.NotFoundException;
 import com.bookstore.back.bookstoreback.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,6 @@ public class CategoriaService {
 
     public Categoria findById(Integer id){
         Optional<Categoria> obj = repository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(()-> new NotFoundException("Objeto não encontrado! Id: " +id+ ", tipo: " + Categoria.class.getName()));
     }
 }
